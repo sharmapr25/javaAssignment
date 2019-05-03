@@ -4,123 +4,93 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RobotTest {
-
     @Test
-    @DisplayName("current position should be same when no instruction has given")
-    public void testCurrentPositionWhenNoInstructionHasGiven() {
-        
-        Robot robot = new Robot(7, 3, Direction.NORTH);
-        robot.process("");
+    @DisplayName("turn right should change direction north to east")
+    public void testTurnRightWhenGivenDirectionIsNorth() {
+        Position position = new Position(new Point(7, 3), Direction.NORTH);
+        Robot robot = new Robot(position);
+        robot.turnRight();
 
-        Robot expectedRobot = new Robot(7, 3, Direction.NORTH);
-        assertTrue(robot.equals(expectedRobot));
-    }
-
-    @Test
-    @DisplayName("current position should change Direction.NORTH to east when given instruction is turning right")
-    public void testCurrentPositionWhenGivenDirectionIsNorthWithInstructionsR() {
-        Robot robot = new Robot(7, 3, Direction.NORTH);
-        robot.process("R");
-
-        Robot expectedRobot = new Robot(7, 3, Direction.EAST);
-        assertTrue(robot.equals(expectedRobot));
+        Position expectedPosition = new Position(new Point(7, 3), Direction.EAST);
+        assertTrue(robot.hasSamePosition(expectedPosition));
 
     }
 
     @Test
-    @DisplayName("current position should change direction west to north when given instruction is turning right")
-    public void testCurrentPositionWhenGivenDirectionIsWestWithInstructionsR() {
-        Robot robot = new Robot(7, 3, Direction.WEST);
-        robot.process("R");
+    @DisplayName("turn right should change direction west to north")
+    public void testTurnRightWhenGivenDirectionIsWest() {
+        Position position = new Position(new Point(7, 3), Direction.WEST);
+        Robot robot = new Robot(position);
+        robot.turnRight();
 
-        Robot expectedRobot = new Robot(7, 3, Direction.NORTH);
-        assertTrue(robot.equals(expectedRobot));
+        Position expectedPosition = new Position(new Point(7, 3), Direction.NORTH);
+        assertTrue(robot.hasSamePosition(expectedPosition));
     }
 
 
     @Test
-    @DisplayName("current position should changed direction east to north when given instruction is turning left")
-    public void testCurrentPositionWhenGivenDirectionIsEastWithInstructionsL() {
-        Robot robot = new Robot(7, 3, Direction.EAST);
-        robot.process("L");
+    @DisplayName("turn left should change direction east to north")
+    public void testTurnLeftWhenGivenDirectionIsEast() {
+        Position position = new Position(new Point(7, 3), Direction.EAST);
+        Robot robot = new Robot(position);
+        robot.turnLeft();
 
-        Robot expectedRobot = new Robot(7, 3, Direction.NORTH);
-        assertTrue(robot.equals(expectedRobot));
+        Position expectedPosition = new Position(new Point(7, 3), Direction.NORTH);
+        assertTrue(robot.hasSamePosition(expectedPosition));
     }
 
     @Test
-    @DisplayName("current position should changed Direction.NORTH to west when given instruction is turning left")
-    public void testCurrentPositionWhenGivenDirectionIsNorthWithInstructionsIsL() {
-        Robot robot = new Robot(7, 3, Direction.NORTH);
-        robot.process("L");
-        Robot expectedRobot = new Robot(7, 3, Direction.WEST);
-        assertTrue(robot.equals(expectedRobot));
-    }
+    @DisplayName("turn left should change direction north to west")
+    public void testTurnLeftWhenGivenDirectionIsNorth() {
+        Position position = new Position(new Point(7, 3), Direction.NORTH);
+        Robot robot = new Robot(position);
+        robot.turnLeft();
 
-
-    @Test
-    @DisplayName("current position should give changed direction when multiple directions instructions have given")
-    public void testCurrentPositionWhenMultipleDirectionsInstructionsHasGiven() {
-        Robot robot = new Robot(7, 3, Direction.EAST);
-        robot.process("LRR");
-
-        Robot expectedRobot = new Robot(7, 3, Direction.SOUTH);
-        assertTrue(robot.equals(expectedRobot));
-    }
-
-
-    @Test
-    @DisplayName("current position should increase y coordinate when given direction is north with movement")
-    public void testCurrentPositionWhenMovementInstructionHasGivenWithNorthDirection() {
-        Robot robot = new Robot(7, 3, Direction.NORTH);
-        robot.process("A");
-
-        Robot expectedRobot = new Robot(7, 4, Direction.NORTH);
-        assertTrue(robot.equals(expectedRobot));
+        Position expectedPosition = new Position(new Point(7, 3), Direction.WEST);
+        assertTrue(robot.hasSamePosition(expectedPosition));
     }
 
     @Test
-    @DisplayName("current position should increase x coordinate when given direction is east with movement")
-    public void testCurrentPositionWhenMovementInstructionHasGivenWithEastDirection() {
+    @DisplayName("move should increase y coordinate when given direction is north")
+    public void testMoveWhenGivenDirectionIsNorth() {
+        Position position = new Position(new Point(7, 3), Direction.NORTH);
+        Robot robot = new Robot(position);
+        robot.move();
 
-        Robot robot = new Robot(7, 3, Direction.EAST);
-        robot.process("A");
-
-        Robot expectedRobot = new Robot(8, 3, Direction.EAST);
-        assertTrue(robot.equals(expectedRobot));
+        Position expectedPosition = new Position(new Point(7, 4), Direction.NORTH);
+        assertTrue(robot.hasSamePosition(expectedPosition));
     }
 
     @Test
-    @DisplayName("current position should decrease x coordinate when given direction is west with movement")
-    public void testCurrentPositionWhenMovementInstructionHasGivenWithWestDirection() {
+    @DisplayName("move should increase x coordinate when given direction is east")
+    public void testMoveWhenGivenDirectionIsEast() {
+        Position position = new Position(new Point(7, 3), Direction.EAST);
+        Robot robot = new Robot(position);
+        robot.move();
 
-        Robot robot = new Robot(7, 3, Direction.WEST);
-        robot.process("A");
-
-        Robot expectedRobot = new Robot(6, 3, Direction.WEST);
-        assertTrue(robot.equals(expectedRobot));
+        Position expectedPosition = new Position(new Point(8, 3), Direction.EAST);
+        assertTrue(robot.hasSamePosition(expectedPosition));
     }
 
     @Test
-    @DisplayName("current position should decrease y coordinate when given direction is south with movement")
+    @DisplayName("move should decrease x coordinate when given direction is west")
+    public void testMoveWhenGivenDirectionIsWest() {
+        Position position = new Position(new Point(7, 3), Direction.WEST);
+        Robot robot = new Robot(position);
+        robot.move();
+
+        Position expectedPosition = new Position(new Point(6, 3), Direction.WEST);
+        assertTrue(robot.hasSamePosition(expectedPosition));
+    }
+
+    @Test
+    @DisplayName("move should decrease y coordinate when given direction is south")
     public void testCurrentPositionWhenMovementInstructionHasGivenWithSouthDirection() {
+        Position position = new Position(new Point(7, 3), Direction.SOUTH);
+        Robot robot = new Robot(position);
+        robot.move();
 
-        Robot robot = new Robot(7, 3, Direction.SOUTH);
-        robot.process("A");
-
-        Robot expectedRobot = new Robot(7, 2, Direction.SOUTH);
-        assertTrue(robot.equals(expectedRobot));
+        Position expectedPosition = new Position(new Point(7, 2), Direction.SOUTH);
+        assertTrue(robot.hasSamePosition(expectedPosition));
     }
-
-    @Test
-    @DisplayName("current position should give changed position when multiple instructions have given")
-    public void testCurrentPositionWhenMultipleInstructionsHasGiven() {
-
-        Robot robot = new Robot(7, 3, Direction.NORTH);
-        robot.process("RAALAL");
-
-        Robot expectedRobot = new Robot(9, 4, Direction.WEST);
-        assertTrue(robot.equals(expectedRobot));
-    }
-
 }
