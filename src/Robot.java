@@ -3,14 +3,12 @@ import java.util.List;
 
 public class Robot {
 
-    private int xCoordinate;
-    private int yCoordinate;
+    Point point;
     private Direction currentDirection;
     private List<Direction> directions;
 
     public Robot(int xCoordinate, int yCoordinate, Direction direction) {
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
+        this.point = new Point(xCoordinate, yCoordinate);
         this.currentDirection = direction;
         this.directions = Arrays.asList(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
     }
@@ -32,18 +30,7 @@ public class Robot {
     }
 
     private void move() {
-        if(currentDirection.equals(Direction.NORTH)) {
-            this.yCoordinate++;
-        }
-        else if (currentDirection.equals(Direction.SOUTH)){
-            this.yCoordinate--;
-        }
-        else if(currentDirection.equals(Direction.EAST)){
-            this.xCoordinate++;
-        }
-        else{
-            this.xCoordinate--;
-        }
+        currentDirection.changeCoordinates(point);
     }
 
 
@@ -70,15 +57,13 @@ public class Robot {
 
         Robot robot = (Robot) o;
 
-        if (xCoordinate != robot.xCoordinate) return false;
-        if (yCoordinate != robot.yCoordinate) return false;
+        if (point != null ? !point.equals(robot.point) : robot.point != null) return false;
         return currentDirection == robot.currentDirection;
     }
 
     @Override
     public int hashCode() {
-        int result = xCoordinate;
-        result = 31 * result + yCoordinate;
+        int result = point != null ? point.hashCode() : 0;
         result = 31 * result + (currentDirection != null ? currentDirection.hashCode() : 0);
         return result;
     }
