@@ -3,16 +3,16 @@ import java.util.List;
 
 public class Robot {
 
-    private int xCordinate;
-    private int yCordinate;
-    private char currentDirection;
-    private List<Character> directions;
+    private int xCoordinate;
+    private int yCoordinate;
+    private Direction currentDirection;
+    private List<Direction> directions;
 
-    public Robot(int xCordinate, int yCordinate, char direction) {
-        this.xCordinate = xCordinate;
-        this.yCordinate = yCordinate;
+    public Robot(int xCoordinate, int yCoordinate, Direction direction) {
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
         this.currentDirection = direction;
-        this.directions = Arrays.asList('N', 'E', 'S', 'W');
+        this.directions = Arrays.asList(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST);
     }
 
     public void process(String instructions) {
@@ -32,17 +32,17 @@ public class Robot {
     }
 
     private void move() {
-        if(currentDirection == 'N') {
-            this.yCordinate++;
+        if(currentDirection.equals(Direction.NORTH)) {
+            this.yCoordinate++;
         }
-        else if (currentDirection == 'S'){
-            this.yCordinate--;
+        else if (currentDirection.equals(Direction.SOUTH)){
+            this.yCoordinate--;
         }
-        else if(currentDirection == 'E'){
-            this.xCordinate++;
+        else if(currentDirection.equals(Direction.EAST)){
+            this.xCoordinate++;
         }
         else{
-            this.xCordinate--;
+            this.xCoordinate--;
         }
     }
 
@@ -70,17 +70,16 @@ public class Robot {
 
         Robot robot = (Robot) o;
 
-        if (xCordinate != robot.xCordinate) return false;
-        if (yCordinate != robot.yCordinate) return false;
-        if (currentDirection != robot.currentDirection) return false;
-        return directions != null ? directions.equals(robot.directions) : robot.directions == null;
+        if (xCoordinate != robot.xCoordinate) return false;
+        if (yCoordinate != robot.yCoordinate) return false;
+        return currentDirection == robot.currentDirection;
     }
 
     @Override
     public int hashCode() {
-        int result = xCordinate;
-        result = 31 * result + yCordinate;
-        result = 31 * result + (int) currentDirection;
+        int result = xCoordinate;
+        result = 31 * result + yCoordinate;
+        result = 31 * result + (currentDirection != null ? currentDirection.hashCode() : 0);
         return result;
     }
 }
