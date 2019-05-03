@@ -6,20 +6,6 @@ public class Robot {
         this.position = position;
     }
 
-    public void process(String instructions) {
-        if (!instructions.isEmpty()) {
-            for (String instruction : instructions.split("")) {
-                if (instruction.equals("R")) {
-                    turnRight();
-                } else if (instruction.equals("L")) {
-                    turnLeft();
-                } else {
-                    move();
-                }
-            }
-        }
-    }
-
     public void move() {
         this.position = this.position.move();
 
