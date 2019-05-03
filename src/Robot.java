@@ -30,7 +30,7 @@ public class Robot {
     }
 
     private void move() {
-        currentDirection.changeCoordinates(point);
+        this.point = currentDirection.changeCoordinates(point);
     }
 
 

@@ -1,27 +1,27 @@
 public class Point {
 
-    private int xCoordinate;
-    private int yCoordinate;
+    private final int xCoordinate;
+    private final int yCoordinate;
 
     public Point(int xCoordinate, int yCoordinate) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }
 
-    public void incrementX() {
-        this.xCoordinate++;
+    public Point incrementX() {
+        return new Point(this.xCoordinate+1, this.yCoordinate);
     }
 
-    public void incrementY() {
-        this.yCoordinate++;
+    public Point incrementY() {
+        return new Point(this.xCoordinate, this.yCoordinate+1);
     }
 
-    public void decrementX() {
-        this.xCoordinate--;
+    public Point decrementX() {
+        return new Point(this.xCoordinate-1, this.yCoordinate);
     }
 
-    public void decrementY() {
-        this.yCoordinate--;
+    public Point decrementY() {
+        return new Point(this.xCoordinate, this.yCoordinate-1);
     }
 
     @Override

@@ -86,8 +86,8 @@ class RobotTest {
         Robot robot = new Robot(7, 3, Direction.EAST);
         robot.process("A");
 
-        Robot expectedRobot2 = new Robot(8, 3, Direction.EAST);
-        assertTrue(robot.equals(expectedRobot2));
+        Robot expectedRobot = new Robot(8, 3, Direction.EAST);
+        assertTrue(robot.equals(expectedRobot));
     }
 
     @Test
@@ -97,8 +97,8 @@ class RobotTest {
         Robot robot = new Robot(7, 3, Direction.WEST);
         robot.process("A");
 
-        Robot expectedRobot2 = new Robot(6, 3, Direction.WEST);
-        assertTrue(robot.equals(expectedRobot2));
+        Robot expectedRobot = new Robot(6, 3, Direction.WEST);
+        assertTrue(robot.equals(expectedRobot));
     }
 
     @Test
@@ -108,8 +108,8 @@ class RobotTest {
         Robot robot = new Robot(7, 3, Direction.SOUTH);
         robot.process("A");
 
-        Robot expectedRobot2 = new Robot(7, 2, Direction.SOUTH);
-        assertTrue(robot.equals(expectedRobot2));
+        Robot expectedRobot = new Robot(7, 2, Direction.SOUTH);
+        assertTrue(robot.equals(expectedRobot));
     }
 
     @Test

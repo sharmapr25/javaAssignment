@@ -1,25 +1,25 @@
 public enum Direction {
     NORTH {
         @Override
-        public void changeCoordinates(Point point) {
-            point.incrementY();
+        public Point changeCoordinates(Point point) {
+            return point.incrementY();
         }
     }, EAST {
         @Override
-        public void changeCoordinates(Point point) {
-            point.incrementX();
+        public Point changeCoordinates(Point point) {
+            return point.incrementX();
         }
     }, WEST {
         @Override
-        public void changeCoordinates(Point point) {
-            point.decrementX();
+        public Point changeCoordinates(Point point) {
+            return point.decrementX();
         }
     }, SOUTH {
         @Override
-        public void changeCoordinates(Point point) {
-            point.decrementY();
+        public Point changeCoordinates(Point point) {
+            return point.decrementY();
         }
     };
 
-    public abstract void changeCoordinates(Point point);
+    public abstract Point changeCoordinates(Point point);
 }
