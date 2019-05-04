@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GridTest {
@@ -52,7 +53,7 @@ class GridTest {
             add(new Cell(1, 1));
         }};
 
-        assertTrue(aliveCells.equals(expectedAliveCells));
+        assertEquals(aliveCells,expectedAliveCells);
     }
 
     @Test
@@ -76,7 +77,7 @@ class GridTest {
             add(new Cell(1, 1));
         }};
 
-        assertTrue(aliveCells.equals(expectedAliveCells));
+        assertEquals(aliveCells,expectedAliveCells);
     }
 
     @Test
@@ -94,7 +95,7 @@ class GridTest {
 
         List<Cell> aliveCells = grid.nextGeneration();
 
-        assertTrue(aliveCells.equals(cells));
+        assertEquals(aliveCells,cells);
     }
 
 
@@ -118,7 +119,7 @@ class GridTest {
             add(new Cell(2, 1));
         }};
 
-        assertTrue(aliveCells.equals(expectedCells));
+        assertEquals(aliveCells,expectedCells);
     }
 
     @Test
@@ -147,7 +148,7 @@ class GridTest {
             add(new Cell(3, 3));
         }};
 
-        assertTrue(aliveCells.equals(expectedCells));
+        assertEquals(aliveCells,expectedCells);
     }
 
 
