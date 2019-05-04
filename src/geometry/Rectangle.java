@@ -12,4 +12,16 @@ public class Rectangle {
     public int getArea() {
         return length * width;
     }
+
+    public int getPerimeter() {
+        return 2 * (length + width);
+    }
+
+    public static Rectangle createSquare(int side) {
+        return new Rectangle(side, side);
+    }
+
+    public static Rectangle createRectangle(int length, int width) {
+        return new Rectangle(length, width);
+    }
 }
