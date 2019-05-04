@@ -1,5 +1,11 @@
+package robo;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import robo.Direction;
+import robo.Point;
+import robo.Position;
+import robo.Robot;
 
 import static org.junit.jupiter.api.Assertions.*;
 

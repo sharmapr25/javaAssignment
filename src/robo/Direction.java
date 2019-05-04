@@ -1,3 +1,5 @@
+package robo;
+
 public enum Direction {
     NORTH {
         @Override

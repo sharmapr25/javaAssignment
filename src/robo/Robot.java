@@ -1,3 +1,5 @@
+package robo;
+
 public class Robot {
     private Position position;
 

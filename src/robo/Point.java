@@ -1,3 +1,5 @@
+package robo;
+
 public class Point {
 
     private final int xCoordinate;

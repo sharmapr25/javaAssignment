@@ -1,3 +1,5 @@
+package robo;
+
 public class Position {
     private final Point point;
     private final Direction direction;

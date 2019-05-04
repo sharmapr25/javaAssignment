@@ -1,5 +1,8 @@
+package robo;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import robo.Point;
 
 import static org.junit.jupiter.api.Assertions.*;
 

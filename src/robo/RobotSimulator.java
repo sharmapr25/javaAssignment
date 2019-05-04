@@ -1,3 +1,5 @@
+package robo;
+
 public class RobotSimulator {
 
 
