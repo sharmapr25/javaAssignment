@@ -44,7 +44,7 @@ public class Grid {
         List<Cell> neighbours = new ArrayList<>();
         for (int index = 0; index < combinationForRows.size(); index++) {
             Cell neighbour = cell.addRowAndColumn(combinationForRows.get(index), combinationForColumns.get(index));
-            if (aliveCells.contains(neighbour)) {
+            if (isAlive(neighbour)) {
                 neighbours.add(neighbour);
             }
         }
