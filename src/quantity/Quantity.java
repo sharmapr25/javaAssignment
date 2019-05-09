@@ -2,6 +2,7 @@ package quantity;
 
 import static quantity.Constant.HUNDRED;
 import static quantity.Constant.THOUSAND;
+import static quantity.Unit.KILOGRAM;
 import static quantity.Unit.KILOMETER;
 import static quantity.Unit.METER;
 
@@ -45,5 +46,9 @@ public class Quantity {
 
     public Quantity convertCentimeterToKiloMeter() {
         return convertCentimeterToMeter().convertMeterToKiloMeter();
+    }
+
+    public Quantity convertGramToKiloGram() {
+        return new Quantity(value/1000, KILOGRAM);
     }
 }

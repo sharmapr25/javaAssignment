@@ -1,5 +1,5 @@
 package quantity;
 
 public enum Unit {
-    CENTIMETER, METER, KILOMETER
+    CENTIMETER, METER, KILOMETER, GRAM, KILOGRAM
 }
