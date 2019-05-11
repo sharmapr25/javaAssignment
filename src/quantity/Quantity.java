@@ -13,6 +13,25 @@ public class Quantity {
         return new Quantity(measurement * unit.getDifference(toUnit), toUnit);
     }
 
+    public Quantity add(Quantity quantityToAdd) throws InvalidUnitConversion {
+        Quantity convertedQuantity = quantityToAdd.convert(this.unit);
+        return new Quantity(measurement + convertedQuantity.measurement, unit);
+    }
+
+    public Quantity subtract(Quantity quantityToSubtract) throws InvalidUnitConversion {
+        Quantity convertedQuantity = quantityToSubtract.convert(this.unit);
+        return new Quantity(measurement - convertedQuantity.measurement, unit);
+    }
+
+    public boolean areSameMeasurement(Quantity quantityToCheck) {
+        try {
+            Quantity convertedQuantity = quantityToCheck.convert(this.unit);
+            return this.equals(convertedQuantity);
+        } catch (InvalidUnitConversion invalidUnitConversion) {
+            return false;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -32,24 +51,5 @@ public class Quantity {
         result = (int) (temp ^ (temp >>> 32));
         result = 31 * result + (unit != null ? unit.hashCode() : 0);
         return result;
-    }
-
-    public Quantity add(Quantity quantityToAdd) throws InvalidUnitConversion {
-        Quantity convertedQuantity = quantityToAdd.convert(this.unit);
-        return new Quantity(measurement + convertedQuantity.measurement, unit) ;
-    }
-
-    public Quantity subtract(Quantity quantityToSubtract) throws InvalidUnitConversion {
-        Quantity convertedQuantity = quantityToSubtract.convert(this.unit);
-        return new Quantity(measurement - convertedQuantity.measurement, unit) ;
-    }
-
-    public boolean areSameMeasurement(Quantity quantityToCheck) {
-        try{
-            Quantity convertedQuantity = quantityToCheck.convert(this.unit);
-            return this.equals(convertedQuantity);
-        }catch (InvalidUnitConversion invalidUnitConversion){
-            return false;
-        }
     }
 }

@@ -108,7 +108,7 @@ class QuantityTest {
     @Test
     public void areSameMeasurement_expectReturnTrue_whenHundredCentimetersAreComparingWithOneMeter() throws InvalidUnitConversion {
         Quantity quantityInCentimeter = new Quantity(100, CENTIMETER);
-        Quantity quantityInMeter= new Quantity(1, METER);
+        Quantity quantityInMeter = new Quantity(1, METER);
 
         assertTrue(quantityInCentimeter.areSameMeasurement(quantityInMeter));
     }
@@ -127,7 +127,7 @@ class QuantityTest {
 
     @Test
     public void add_expectReturnUnitInKilometer_whenLeftUnitIsKilometer() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(1,  KILOMETER);
+        Quantity quantity = new Quantity(1, KILOMETER);
         Quantity quantityInMeter = new Quantity(100, METER);
         Quantity compoundQuantity = quantity.add(quantityInMeter);
 
@@ -138,7 +138,7 @@ class QuantityTest {
 
     @Test
     public void subtract_expectReturnUnitInKilometer_whenLeftUnitIsKilometer() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(1,  KILOMETER);
+        Quantity quantity = new Quantity(1, KILOMETER);
         Quantity quantityInMeter = new Quantity(100, METER);
         Quantity compoundQuantity = quantity.subtract(quantityInMeter);
 
