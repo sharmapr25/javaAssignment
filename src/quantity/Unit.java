@@ -25,8 +25,14 @@ public enum Unit {
         }
     }, KILOMETER {
         @Override
-        public double getDifference(Unit toUnit) {
-            return 0;
+        public double getDifference(Unit toUnit) throws InvalidUnitConversion {
+            if(toUnit.equals(CENTIMETER)){
+                return 100000;
+            }
+            if(toUnit.equals(METER)){
+                return 1000;
+            }
+            throw new InvalidUnitConversion();
         }
     },
     GRAM {

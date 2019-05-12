@@ -78,6 +78,24 @@ class QuantityTest {
     }
 
     @Test
+    public void convert_expectReturnThousandMeter_whenOneKilometerHaveGiven() throws InvalidUnitConversion {
+        Quantity quantity = new Quantity(1, KILOMETER);
+        Quantity quantityInMeter = quantity.convert(METER);
+
+        Quantity expectedQuantity = new Quantity(1000, METER);
+        assertEquals(expectedQuantity, quantityInMeter);
+    }
+
+    @Test
+    public void convert_expectReturnFiftyThousandCentimeter_whenhalfKilometerHaveGiven() throws InvalidUnitConversion {
+        Quantity quantity = new Quantity(0.5, KILOMETER);
+        Quantity quantityInCentimeter = quantity.convert(CENTIMETER);
+
+        Quantity expectedQuantity = new Quantity(50000, CENTIMETER);
+        assertEquals(expectedQuantity, quantityInCentimeter);
+    }
+
+    @Test
     public void convert_expectReturnOneKiloGram_whenThousandGramsHaveGiven() throws InvalidUnitConversion {
         Quantity quantity = new Quantity(1000, GRAM);
         Quantity quantityInKilogram = quantity.convert(KILOGRAM);
