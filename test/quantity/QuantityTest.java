@@ -165,4 +165,60 @@ class QuantityTest {
         assertEquals(expectedQuantity, compoundQuantity);
     }
 
+    @Test
+    public void convert_expectReturnThirtyTwoDegreeFahrenheit_whenGivenTemperatureIsZeroDegreeCelsius() throws InvalidUnitConversion {
+        Quantity quantity = new Quantity(0, CELSIUS);
+        Quantity quantityInFahrenheit = quantity.convert(FAHRENHEIT);
+
+        Quantity expectedQuantity = new Quantity(32, FAHRENHEIT);
+
+        assertEquals(expectedQuantity, quantityInFahrenheit);
+    }
+
+    @Test
+    public void convert_expectReturnFortyOneDegreeFahrenheit_whenGivenTemperatureIsFiveDegreeCelsius() throws InvalidUnitConversion {
+        Quantity quantity = new Quantity(5, CELSIUS);
+        Quantity quantityInFahrenheit = quantity.convert(FAHRENHEIT);
+
+        Quantity expectedQuantity = new Quantity(41, FAHRENHEIT);
+
+        assertEquals(expectedQuantity, quantityInFahrenheit);
+    }
+
+    @Test
+    public void convert_expectReturnZeroDegreeCelsius_whenGivenTemperatureIsThirtyTwoDegreeFahrenheit() throws InvalidUnitConversion {
+        Quantity quantity = new Quantity(32, FAHRENHEIT);
+        Quantity quantityInCelsius = quantity.convert(CELSIUS);
+
+        Quantity expectedQuantity = new Quantity(0, CELSIUS);
+
+        assertEquals(expectedQuantity, quantityInCelsius);
+    }
+
+    @Test
+    public void convert_expectReturnFiveDegreeCelsius_whenGivenTemperatureIsFortyOneDegreeFahrenheit() throws InvalidUnitConversion {
+        Quantity quantity = new Quantity(41, FAHRENHEIT);
+        Quantity quantityInCelsius = quantity.convert(CELSIUS);
+
+        Quantity expectedQuantity = new Quantity(5, CELSIUS);
+
+        assertEquals(expectedQuantity, quantityInCelsius);
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnFalse_whenGivenQuantitiesAreCelsiusAndCentimeter() throws InvalidUnitConversion {
+        Quantity quantityInCentimeter = new Quantity(32, CENTIMETER);
+        Quantity quantityInCelsius = new Quantity(0, CELSIUS);
+
+        assertFalse(quantityInCelsius.areSameMeasurement(quantityInCentimeter));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnTrue_whenHundredCelsiusAreComparingWithTwoHundredTwelveFahrenheit() throws InvalidUnitConversion {
+        Quantity quantityInFahrenheit = new Quantity(212, FAHRENHEIT);
+        Quantity quantityInCelsius = new Quantity(100, CELSIUS);
+
+        assertTrue(quantityInCelsius.areSameMeasurement(quantityInFahrenheit));
+    }
+
 }

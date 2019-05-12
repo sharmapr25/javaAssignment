@@ -10,7 +10,7 @@ public class Quantity {
     }
 
     public Quantity convert(Unit toUnit) throws InvalidUnitConversion {
-        return new Quantity(measurement * unit.getDifference(toUnit), toUnit);
+        return new Quantity(unit.convertTo(measurement, toUnit), toUnit);
     }
 
     public Quantity add(Quantity quantityToAdd) throws InvalidUnitConversion {
