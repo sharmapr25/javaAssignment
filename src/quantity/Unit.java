@@ -1,77 +1,42 @@
 package quantity;
 
+import static quantity.QuantityType.DISTANCE;
+import static quantity.QuantityType.TEMPERATURE;
+import static quantity.QuantityType.WEIGHT;
+
+/*
+Represent units for distance, weight and temperature
+ */
 public enum Unit {
-    CENTIMETER {
-        @Override
-        public double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion {
-            if (toUnit.equals(METER)) {
-                return measurement * 0.01;
-            }
-            if (toUnit.equals(KILOMETER)) {
-                return measurement * 0.00001;
-            }
-            throw new InvalidUnitConversion();
-        }
-    }, METER {
-        @Override
-        public double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion {
-            if (toUnit.equals(CENTIMETER)) {
-                return measurement * 100;
-            }
-            if (toUnit.equals(KILOMETER)) {
-                return measurement * 0.001;
-            }
-            throw new InvalidUnitConversion();
-        }
-    }, KILOMETER {
-        @Override
-        public double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion {
-            if (toUnit.equals(CENTIMETER)) {
-                return measurement * 100000;
-            }
-            if (toUnit.equals(METER)) {
-                return measurement * 1000;
-            }
-            throw new InvalidUnitConversion();
-        }
-    },
-    GRAM {
-        @Override
-        public double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion {
-            if (toUnit.equals(KILOGRAM)) {
-                return measurement * 0.001;
-            }
-            throw new InvalidUnitConversion();
-        }
-    },
-    KILOGRAM {
-        @Override
-        public double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion {
-            if (toUnit.equals(GRAM)) {
-                return measurement * 1000;
-            }
-            throw new InvalidUnitConversion();
-        }
-    },
-    CELSIUS {
-        @Override
-        public double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion {
-            if (toUnit.equals(FAHRENHEIT)) {
-                return ((measurement * 9) / 5) + 32;
-            }
-            throw new InvalidUnitConversion();
+    CENTIMETER(1, DISTANCE),
+    METER(100, DISTANCE),
+    KILOMETER(100000, DISTANCE),
+    GRAM(1, WEIGHT),
+    KILOGRAM(1000, WEIGHT),
+    CELSIUS(9, TEMPERATURE, 0),
+    FAHRENHEIT(5, TEMPERATURE, 32);
 
-        }
-    }, FAHRENHEIT {
-        @Override
-        public double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion {
-            if (toUnit.equals(CELSIUS)) {
-                return (measurement - 32) * 5 / 9;
-            }
-            throw new InvalidUnitConversion();
+    private final double factor;
+    private final QuantityType type;
+    private double intercept;
 
-        }
-    };
+    Unit(double factor, QuantityType type) {
+        this.factor = factor;
+        this.type = type;
+    }
 
-    public abstract double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion;
+    Unit(double factor, QuantityType type, double intercept) {
+        this.factor = factor;
+        this.type = type;
+        this.intercept = intercept;
+    }
+
+    public double convertTo(double measurement, Unit toUnit) throws InvalidUnitConversion {
+        if(!this.type.equals(toUnit.type)){
+           throw new InvalidUnitConversion();
+        }
+        double baseValue = measurement - this.intercept;
+        double factorDivision = this.factor / toUnit.factor;
+        return baseValue * factorDivision + toUnit.intercept;
+    }
 }

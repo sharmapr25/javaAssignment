@@ -8,111 +8,36 @@ import static quantity.Unit.*;
 class QuantityTest {
 
     @Test
-    public void convert_expectReturnOneMeter_whenHundredCentimetersHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(100, CENTIMETER);
-        Quantity quantityInMeter = quantity.convert(METER);
+    public void areSameMeasurement_expectReturnTrue_whenHundredCentimetersIsComparingWithOneMeter() throws InvalidUnitConversion {
+        Quantity quantityInCentimeter = new Quantity(100, CENTIMETER);
+        Quantity quantityInMeter = new Quantity(1, METER);
 
-        Quantity expectedQuantity = new Quantity(1, METER);
-        assertEquals(expectedQuantity, quantityInMeter);
+        assertTrue(quantityInCentimeter.areSameMeasurement(quantityInMeter));
     }
 
     @Test
-    public void convert_expectReturnOneKiloMeter_whenLacCentimetersHaveGiven() throws InvalidUnitConversion {
+    public void areSameMeasurement_expectReturnHalfMeter_whenFiftyCentimetersHaveGiven() throws InvalidUnitConversion {
+        Quantity quantityInCentimeter = new Quantity(50, CENTIMETER);
+        Quantity quantityInMeter = new Quantity(0.5, METER);
+
+        assertTrue(quantityInCentimeter.areSameMeasurement(quantityInMeter));
+
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnFalse_whenFiftyCentimeterIsComparingWithOneMeter() throws InvalidUnitConversion {
+        Quantity quantityInMeter = new Quantity(50, CENTIMETER);
+        Quantity quantityInCentimeter = new Quantity(1, METER);
+
+        assertFalse(quantityInCentimeter.areSameMeasurement(quantityInMeter));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnTrue_whenLacCentimetersIsComparingWithOneKiloMeter() throws InvalidUnitConversion {
         Quantity quantity = new Quantity(100000, CENTIMETER);
-        Quantity quantityInMeter = quantity.convert(KILOMETER);
+        Quantity quantityInKilometer = new Quantity(1, KILOMETER);
 
-        Quantity expectedQuantity = new Quantity(1, KILOMETER);
-        assertEquals(expectedQuantity, quantityInMeter);
-    }
-
-    @Test
-    public void convert_expectReturnHalfMeter_whenFiftyCentimetersHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(50, CENTIMETER);
-        Quantity quantityInKilometer = quantity.convert(METER);
-
-        Quantity expectedQuantity = new Quantity(0.5, METER);
-        assertEquals(expectedQuantity, quantityInKilometer);
-    }
-
-    @Test
-    public void convert_expectThrowAnError_whenGivenUnitIsNotValidForConversionForCentimeter() {
-        Quantity quantity = new Quantity(50, CENTIMETER);
-        assertThrows(InvalidUnitConversion.class, () -> {
-            quantity.convert(GRAM);
-        });
-    }
-
-    @Test
-    public void convert_expectReturnOneKiloMeter_whenThousandMetersHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(1000, METER);
-        Quantity quantityInKilometer = quantity.convert(KILOMETER);
-
-        Quantity expectedQuantity = new Quantity(1, KILOMETER);
-        assertEquals(expectedQuantity, quantityInKilometer);
-    }
-
-    @Test
-    public void convert_expectReturnThousandCentimeter_whenTenMetersHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(10, METER);
-        Quantity quantityInMeter = quantity.convert(CENTIMETER);
-
-        Quantity expectedQuantity = new Quantity(1000, CENTIMETER);
-        assertEquals(expectedQuantity, quantityInMeter);
-    }
-
-    @Test
-    public void convert_expectReturnHalfKiloMeter_whenFiveHundredMetersHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(500, METER);
-        Quantity quantityInMeter = quantity.convert(KILOMETER);
-
-        Quantity expectedQuantity = new Quantity(0.5, KILOMETER);
-        assertEquals(expectedQuantity, quantityInMeter);
-    }
-
-    @Test
-    public void convert_expectThrowAnError_whenGivenUnitIsNotValidForConversionForMeter() {
-        Quantity quantity = new Quantity(50, METER);
-        assertThrows(InvalidUnitConversion.class, () -> {
-            quantity.convert(GRAM);
-        });
-    }
-
-    @Test
-    public void convert_expectReturnThousandMeter_whenOneKilometerHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(1, KILOMETER);
-        Quantity quantityInMeter = quantity.convert(METER);
-
-        Quantity expectedQuantity = new Quantity(1000, METER);
-        assertEquals(expectedQuantity, quantityInMeter);
-    }
-
-    @Test
-    public void convert_expectReturnFiftyThousandCentimeter_whenhalfKilometerHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(0.5, KILOMETER);
-        Quantity quantityInCentimeter = quantity.convert(CENTIMETER);
-
-        Quantity expectedQuantity = new Quantity(50000, CENTIMETER);
-        assertEquals(expectedQuantity, quantityInCentimeter);
-    }
-
-    @Test
-    public void convert_expectReturnOneKiloGram_whenThousandGramsHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(1000, GRAM);
-        Quantity quantityInKilogram = quantity.convert(KILOGRAM);
-
-        Quantity expectedQuantity = new Quantity(1, KILOGRAM);
-
-        assertEquals(expectedQuantity, quantityInKilogram);
-    }
-
-    @Test
-    public void convert_expectReturnFiveHundredGram_whenHalfKilogramsHaveGiven() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(0.5, KILOGRAM);
-        Quantity quantityInGram = quantity.convert(GRAM);
-
-        Quantity expectedQuantity = new Quantity(500, GRAM);
-
-        assertEquals(expectedQuantity, quantityInGram);
+        assertTrue(quantity.areSameMeasurement(quantityInKilometer));
     }
 
     @Test
@@ -124,23 +49,110 @@ class QuantityTest {
     }
 
     @Test
-    public void areSameMeasurement_expectReturnTrue_whenHundredCentimetersAreComparingWithOneMeter() throws InvalidUnitConversion {
-        Quantity quantityInCentimeter = new Quantity(100, CENTIMETER);
-        Quantity quantityInMeter = new Quantity(1, METER);
+    public void areSameMeasurement_expectReturnTrue_whenThousandMeterIsComparingWithOneKiloMeter() throws InvalidUnitConversion {
+        Quantity quantityInMeter = new Quantity(1000, METER);
+        Quantity quantityInKilometer = new Quantity(1, KILOMETER);
 
-        assertTrue(quantityInCentimeter.areSameMeasurement(quantityInMeter));
+        assertTrue(quantityInMeter.areSameMeasurement(quantityInKilometer));
     }
 
+    @Test
+    public void areSameMeasurement_expectReturnTrue_whenTenMeterAreComparingWithThousandCentimeter() throws InvalidUnitConversion {
+        Quantity quantityInCentimeter = new Quantity(10, METER);
+        Quantity quantityInMeter = new Quantity(1000, CENTIMETER);
+
+        assertTrue(quantityInMeter.areSameMeasurement(quantityInCentimeter));
+    }
 
     @Test
-    public void add_expectReturnUnitInCentimeter_whenLeftUnitIsCentimeter() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(100, CENTIMETER);
-        Quantity quantityInMeter = new Quantity(1, METER);
-        Quantity compoundQuantity = quantity.add(quantityInMeter);
+    public void areSameMeasurement_expectReturnFalse_whenHalfMeterAreComparingWithHundredCentimeter() throws InvalidUnitConversion {
+        Quantity quantityInCentimeter = new Quantity(0.5, METER);
+        Quantity quantityInMeter = new Quantity(100, CENTIMETER);
 
-        Quantity expectedQuantity = new Quantity(200, CENTIMETER);
+        assertFalse(quantityInMeter.areSameMeasurement(quantityInCentimeter));
+    }
 
-        assertEquals(expectedQuantity, compoundQuantity);
+    @Test
+    public void areSameMeasurement_expectReturnTrue_whenFiveHundredMetersIsComparingWithHalfKiloMeter() throws InvalidUnitConversion {
+        Quantity meter = new Quantity(500, METER);
+        Quantity kilometer = new Quantity(0.5, KILOMETER);
+
+        assertTrue(meter.areSameMeasurement(kilometer));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnFalse_whenMeterIsComparingWithGram() {
+        Quantity meter = new Quantity(50, METER);
+        Quantity gram = new Quantity(50, GRAM);
+
+        assertFalse(meter.areSameMeasurement(gram));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnTrue_whenOneKilometerIsComparingWithThousandMeter() throws InvalidUnitConversion {
+        Quantity kilometer = new Quantity(1, KILOMETER);
+        Quantity meter = new Quantity(1000, METER);
+
+        assertTrue(kilometer.areSameMeasurement(meter));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnTrue_whenHalfKilometerIsComparingWithFiftyThousandCentimeter() throws InvalidUnitConversion {
+        Quantity kilometer = new Quantity(0.5, KILOMETER);
+        Quantity centimeter = new Quantity(50000, CENTIMETER);
+
+        assertTrue(kilometer.areSameMeasurement(centimeter));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnTrue_whenThousandGramsIsComparingWithOneKiloGram() throws InvalidUnitConversion {
+        Quantity gram = new Quantity(1000, GRAM);
+        Quantity kilogram = new Quantity(1, KILOGRAM);
+
+        assertTrue(gram.areSameMeasurement(kilogram));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturn_whenHalfKilogramsIsComparingWithFiveHundredGram() throws InvalidUnitConversion {
+        Quantity kilogram = new Quantity(0.5, KILOGRAM);
+        Quantity gram = new Quantity(500, GRAM);
+
+        assertTrue(kilogram.areSameMeasurement(gram));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturn_whenHalfKilogramsIsComparingWithThousandGram() throws InvalidUnitConversion {
+        Quantity kilogram = new Quantity(0.5, KILOGRAM);
+        Quantity gram = new Quantity(1000, GRAM);
+
+        assertFalse(kilogram.areSameMeasurement(gram));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnFalse_whenGivenQuantitiesAreCelsiusAndCentimeter() throws InvalidUnitConversion {
+        Quantity quantityInCentimeter = new Quantity(32, CENTIMETER);
+        Quantity quantityInCelsius = new Quantity(0, CELSIUS);
+
+        assertFalse(quantityInCelsius.areSameMeasurement(quantityInCentimeter));
+    }
+
+    @Test
+    public void areSameMeasurement_expectReturnTrue_whenHundredCelsiusIsComparingWithTwoHundredTwelveFahrenheit() throws InvalidUnitConversion {
+        Quantity quantityInFahrenheit = new Quantity(212, FAHRENHEIT);
+        Quantity quantityInCelsius = new Quantity(100, CELSIUS);
+
+        assertTrue(quantityInCelsius.areSameMeasurement(quantityInFahrenheit));
+    }
+
+    @Test
+    public void add_expectReturnTrue_whenAddedHundredCentimeterWithOneMeterAndComparingWIthTwoHundredCentimeter() throws InvalidUnitConversion {
+        Quantity hundredCentimeter = new Quantity(100, CENTIMETER);
+        Quantity meter = new Quantity(1, METER);
+
+        Quantity compoundQuantity = hundredCentimeter.add(meter);
+        Quantity twoHundredCentimeter = new Quantity(200, CENTIMETER);
+
+        assertEquals(twoHundredCentimeter, compoundQuantity);
     }
 
     @Test
@@ -166,59 +178,36 @@ class QuantityTest {
     }
 
     @Test
-    public void convert_expectReturnThirtyTwoDegreeFahrenheit_whenGivenTemperatureIsZeroDegreeCelsius() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(0, CELSIUS);
-        Quantity quantityInFahrenheit = quantity.convert(FAHRENHEIT);
+    public void areSameMeasurement_expectReturnTrue_whenZeroDegreeCelsiusIsComparingWithThirtyTwoDegreeFahrenheit() throws InvalidUnitConversion {
+        Quantity celsius = new Quantity(0, CELSIUS);
+        Quantity fahrenheit = new Quantity(32, FAHRENHEIT);
 
-        Quantity expectedQuantity = new Quantity(32, FAHRENHEIT);
-
-        assertEquals(expectedQuantity, quantityInFahrenheit);
+        assertTrue(celsius.areSameMeasurement(fahrenheit));
     }
 
     @Test
-    public void convert_expectReturnFortyOneDegreeFahrenheit_whenGivenTemperatureIsFiveDegreeCelsius() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(5, CELSIUS);
-        Quantity quantityInFahrenheit = quantity.convert(FAHRENHEIT);
+    public void areSameMeasurement_expectReturnTrue_whenFiveDegreeCelsiusIsComparingWithFortyOneDegreeFahrenheit() throws InvalidUnitConversion {
+        Quantity celsius = new Quantity(5, CELSIUS);
+        Quantity fahrenheit = new Quantity(41, FAHRENHEIT);
 
-        Quantity expectedQuantity = new Quantity(41, FAHRENHEIT);
-
-        assertEquals(expectedQuantity, quantityInFahrenheit);
+        assertTrue(celsius.areSameMeasurement(fahrenheit));
     }
 
     @Test
-    public void convert_expectReturnZeroDegreeCelsius_whenGivenTemperatureIsThirtyTwoDegreeFahrenheit() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(32, FAHRENHEIT);
-        Quantity quantityInCelsius = quantity.convert(CELSIUS);
+    public void areSameMeasurement_expectReturnTrue_whenThirtyTwoDegreeFahrenheitIsComparingWithZeroDegreeCelsius() throws InvalidUnitConversion {
+        Quantity fahrenheit = new Quantity(32, FAHRENHEIT);
 
-        Quantity expectedQuantity = new Quantity(0, CELSIUS);
+        Quantity celsius = new Quantity(0, CELSIUS);
 
-        assertEquals(expectedQuantity, quantityInCelsius);
+        assertTrue(fahrenheit.areSameMeasurement(celsius));
     }
 
     @Test
-    public void convert_expectReturnFiveDegreeCelsius_whenGivenTemperatureIsFortyOneDegreeFahrenheit() throws InvalidUnitConversion {
-        Quantity quantity = new Quantity(41, FAHRENHEIT);
-        Quantity quantityInCelsius = quantity.convert(CELSIUS);
+    public void areSameMeasurement_expectReturnFalse_whenFortyOneDegreeFahrenheitIsComparingWithTwoDegreeCelsius() throws InvalidUnitConversion {
+        Quantity fahrenheit = new Quantity(41, FAHRENHEIT);
+        Quantity celsius = new Quantity(2, CELSIUS);
 
-        Quantity expectedQuantity = new Quantity(5, CELSIUS);
-
-        assertEquals(expectedQuantity, quantityInCelsius);
-    }
-
-    @Test
-    public void areSameMeasurement_expectReturnFalse_whenGivenQuantitiesAreCelsiusAndCentimeter() throws InvalidUnitConversion {
-        Quantity quantityInCentimeter = new Quantity(32, CENTIMETER);
-        Quantity quantityInCelsius = new Quantity(0, CELSIUS);
-
-        assertFalse(quantityInCelsius.areSameMeasurement(quantityInCentimeter));
-    }
-
-    @Test
-    public void areSameMeasurement_expectReturnTrue_whenHundredCelsiusAreComparingWithTwoHundredTwelveFahrenheit() throws InvalidUnitConversion {
-        Quantity quantityInFahrenheit = new Quantity(212, FAHRENHEIT);
-        Quantity quantityInCelsius = new Quantity(100, CELSIUS);
-
-        assertTrue(quantityInCelsius.areSameMeasurement(quantityInFahrenheit));
+        assertFalse(fahrenheit.areSameMeasurement(celsius));
     }
 
 }

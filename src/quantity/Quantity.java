@@ -1,5 +1,7 @@
 package quantity;
-
+/*
+Represent quantity with operation of adding, subtracting, converting and checking equality
+ */
 public class Quantity {
     private final double measurement;
     private final Unit unit;
@@ -9,7 +11,7 @@ public class Quantity {
         this.unit = unit;
     }
 
-    public Quantity convert(Unit toUnit) throws InvalidUnitConversion {
+    private Quantity convert(Unit toUnit) throws InvalidUnitConversion {
         return new Quantity(unit.convertTo(measurement, toUnit), toUnit);
     }
 
@@ -38,7 +40,6 @@ public class Quantity {
         if (o == null || getClass() != o.getClass()) return false;
 
         Quantity quantity = (Quantity) o;
-
         if (Double.compare(quantity.measurement, measurement) != 0) return false;
         return unit == quantity.unit;
     }
