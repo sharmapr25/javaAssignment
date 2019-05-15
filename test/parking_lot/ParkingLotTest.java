@@ -40,9 +40,30 @@ class ParkingLotTest {
 
         parkingLot.park(car);
 
-
         assertThrows(CarAlreadyParkedException.class, () -> {
             parkingLot.park(car);
+        });
+    }
+
+    @Test
+    public void isCarParked_shouldReturnFalse_whenGiveCarIsUnparked() {
+        ParkingLot parkingLot = new ParkingLot(2);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.park(car);
+        parkingLot.unpark(car);
+
+        assertFalse(parkingLot.isCarParked(car));
+
+    }
+
+    @Test
+    public void unpark_shouldThrowCarIsNotParkedException_whenCarHasNotParkInParkingLot() {
+        ParkingLot parkingLot = new ParkingLot(2);
+        Car car = new Car("EW-012-23");
+
+        assertThrows(CarIsNotParkedException.class, () -> {
+            parkingLot.unpark(car);
         });
     }
 

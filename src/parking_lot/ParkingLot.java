@@ -33,4 +33,11 @@ public class ParkingLot {
     private boolean isSpaceAvailable() {
         return slots.size() < maxCapacity;
     }
+
+    public void unpark(Car car) {
+        if (!isCarParked(car)) {
+            throw new CarIsNotParkedException();
+        }
+        slots = slots.stream().filter(slot -> !slot.hasCar(car)).collect(Collectors.toList());
+    }
 }
