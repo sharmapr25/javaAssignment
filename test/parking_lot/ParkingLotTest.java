@@ -1,26 +1,29 @@
 package parking_lot;
 
 import org.junit.jupiter.api.Test;
+import parking_lot.exception.CarAlreadyParkedException;
+import parking_lot.exception.CarIsNotParkedException;
+import parking_lot.exception.SpaceNotAvailableException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingLotTest {
 
     @Test
-    public void isCarParked_shouldReturnTrue_whenCarIsParkedInParkingLot() {
+    public void isParked_shouldReturnTrue_whenCarIsParkedInParkingLot() {
         Car car = new Car("EW-012-23");
-        ParkingLot parkingLot = new ParkingLot(3);
+        ParkingLot parkingLot = new ParkingLot(1);
         parkingLot.park(car);
 
-        assertTrue(parkingLot.isCarParked(car));
+        assertTrue(parkingLot.isParked(car));
     }
 
     @Test
-    public void isCarParked_shouldReturnFalse_whenCarIsNotParkedInParkingLot() {
+    public void isParked_shouldReturnFalse_whenCarIsNotParkedInParkingLot() {
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car("EW-012-23");
 
-        assertFalse(parkingLot.isCarParked(car));
+        assertFalse(parkingLot.isParked(car));
     }
 
     @Test
@@ -46,14 +49,14 @@ class ParkingLotTest {
     }
 
     @Test
-    public void isCarParked_shouldReturnFalse_whenGiveCarIsUnparked() {
+    public void isParked_shouldReturnFalse_whenGiveCarIsUnparked() {
         ParkingLot parkingLot = new ParkingLot(2);
         Car car = new Car("EW-012-23");
 
         parkingLot.park(car);
         parkingLot.unpark(car);
 
-        assertFalse(parkingLot.isCarParked(car));
+        assertFalse(parkingLot.isParked(car));
 
     }
 

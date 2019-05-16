@@ -1,5 +1,9 @@
 package parking_lot;
 
+import parking_lot.exception.CarAlreadyParkedException;
+import parking_lot.exception.CarIsNotParkedException;
+import parking_lot.exception.SpaceNotAvailableException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +20,7 @@ public class ParkingLot {
 
 
     public void park(Car car) {
-        if (isCarParked(car)) {
+        if (isParked(car)) {
             throw new CarAlreadyParkedException();
         }
         if (!isSpaceAvailable()) {
@@ -26,7 +30,7 @@ public class ParkingLot {
     }
 
 
-    public boolean isCarParked(Car car) {
+    public boolean isParked(Car car) {
         return !slots.stream().filter(slot -> slot.hasCar(car)).collect(Collectors.toList()).isEmpty();
     }
 
@@ -35,7 +39,7 @@ public class ParkingLot {
     }
 
     public void unpark(Car car) {
-        if (!isCarParked(car)) {
+        if (!isParked(car)) {
             throw new CarIsNotParkedException();
         }
         slots = slots.stream().filter(slot -> !slot.hasCar(car)).collect(Collectors.toList());
