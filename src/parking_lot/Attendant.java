@@ -10,4 +10,8 @@ public class Attendant {
     public void park(Car car) {
         parkingLot.park(car);
     }
+
+    public void unpark(Car car) {
+        parkingLot.unpark(car);
+    }
 }
