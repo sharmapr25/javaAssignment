@@ -71,7 +71,7 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotifyParkingLotOwner_whenParkingLotIsFull(){
+    public void notify_shouldNotifyParkingLotOwner_whenParkingLotIsFull() {
         Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(1);
 
@@ -80,11 +80,11 @@ class ParkingLotTest {
         parkingLot.addObserver(owner);
         parkingLot.park(car);
 
-        assertTrue(owner.isNotified());
+        assertTrue(owner.isNotifiedParkingLotFull());
     }
 
     @Test
-    public void notify_shouldNotNotifyParkingLotOwner_whenParkingLotIsNotFull(){
+    public void notify_shouldNotNotifyParkingLotOwner_whenParkingLotIsNotFull() {
         Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(2);
         Car car = new Car("EW-012-23");
@@ -92,7 +92,66 @@ class ParkingLotTest {
         parkingLot.addObserver(owner);
         parkingLot.park(car);
 
-        assertFalse(owner.isNotified());
+        assertFalse(owner.isNotifiedParkingLotFull());
+    }
+
+    @Test
+    public void notify_shouldNotifyParkingLotOwner_whenParkingLotGetFreeSpace() {
+        Owner owner = new Owner();
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(owner);
+        parkingLot.park(car);
+        parkingLot.unpark(car);
+
+        assertTrue(owner.isNotifiedParkingLotSpaceAvailable());
+    }
+
+    @Test
+    public void notify_shouldNotNotifyParkingLotOwner_whenParkingLotAlreadyHasFreeSpaceAndSomebodyUnparkTheCar() {
+        Owner owner = new Owner();
+        ParkingLot parkingLot = new ParkingLot(2);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(owner);
+        parkingLot.park(car);
+        parkingLot.unpark(car);
+
+        assertFalse(owner.isNotifiedParkingLotSpaceAvailable());
+
+    }
+
+    @Test
+    public void notify_shouldNotifyParkingLotOwnerForSpaceAvailableOnly_whenParkingLotAlreadyHasFreeSpaceAndSomebodyUnparkTheCar() {
+        Owner owner = new Owner();
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(owner);
+        parkingLot.park(car);
+        parkingLot.unpark(car);
+
+        assertFalse(owner.isNotifiedParkingLotFull());
+        assertTrue(owner.isNotifiedParkingLotSpaceAvailable());
+
+    }
+
+    @Test
+    public void notify_shouldNotifyParkingLotOwnerOnlyForParkingLotFull_whenParkingLotDoesNotHaveSpace() {
+        Owner owner = new Owner();
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(owner);
+        parkingLot.park(car);
+        parkingLot.unpark(car);
+
+        parkingLot.park(car);
+
+        assertTrue(owner.isNotifiedParkingLotFull());
+        assertFalse(owner.isNotifiedParkingLotSpaceAvailable());
+
     }
 
 }

@@ -30,7 +30,7 @@ public class ParkingLot {
         }
         slots.add(new Slot(car));
 
-        if(isFull()){
+        if (isFull()) {
             observers.forEach(ParkingLotObserver::notifyParkingLotIsFull);
         }
     }
@@ -47,6 +47,9 @@ public class ParkingLot {
     public void unpark(Car car) {
         if (!isParked(car)) {
             throw new CarIsNotParkedException();
+        }
+        if (isFull()) {
+            observers.forEach(ParkingLotObserver::notifyParkingLotSpaceAvailable);
         }
         slots = slots.stream().filter(slot -> !slot.hasCar(car)).collect(Collectors.toList());
     }
