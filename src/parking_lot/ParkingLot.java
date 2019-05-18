@@ -11,11 +11,13 @@ import java.util.stream.Collectors;
 public class ParkingLot {
     private List<Slot> slots;
     private int maxCapacity;
+    private List<ParkingLotObserver> observers;
 
 
     public ParkingLot(int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.slots = new ArrayList<>();
+        observers = new ArrayList<>();
     }
 
 
@@ -23,10 +25,14 @@ public class ParkingLot {
         if (isParked(car)) {
             throw new CarAlreadyParkedException();
         }
-        if (!isSpaceAvailable()) {
+        if (isFull()) {
             throw new SpaceNotAvailableException();
         }
         slots.add(new Slot(car));
+
+        if(isFull()){
+            observers.forEach(ParkingLotObserver::notifyParkingLotIsFull);
+        }
     }
 
 
@@ -34,8 +40,8 @@ public class ParkingLot {
         return !slots.stream().filter(slot -> slot.hasCar(car)).collect(Collectors.toList()).isEmpty();
     }
 
-    private boolean isSpaceAvailable() {
-        return slots.size() < maxCapacity;
+    private boolean isFull() {
+        return slots.size() == maxCapacity;
     }
 
     public void unpark(Car car) {
@@ -43,5 +49,9 @@ public class ParkingLot {
             throw new CarIsNotParkedException();
         }
         slots = slots.stream().filter(slot -> !slot.hasCar(car)).collect(Collectors.toList());
+    }
+
+    public void addObserver(Owner owner) {
+        observers.add(owner);
     }
 }

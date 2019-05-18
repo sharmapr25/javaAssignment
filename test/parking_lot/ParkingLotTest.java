@@ -70,5 +70,29 @@ class ParkingLotTest {
         });
     }
 
+    @Test
+    public void notify_shouldNotifyParkingLotOwner_whenParkingLotIsFull(){
+        Owner owner = new Owner();
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(owner);
+        parkingLot.park(car);
+
+        assertTrue(owner.isNotified());
+    }
+
+    @Test
+    public void notify_shouldNotNotifyParkingLotOwner_whenParkingLotIsNotFull(){
+        Owner owner = new Owner();
+        ParkingLot parkingLot = new ParkingLot(2);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(owner);
+        parkingLot.park(car);
+
+        assertFalse(owner.isNotified());
+    }
 
 }
