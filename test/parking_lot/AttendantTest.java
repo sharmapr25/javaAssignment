@@ -63,4 +63,51 @@ class AttendantTest {
         });
     }
 
+    @Test
+    public void notify_shouldNotifyAttendant_whenParkingLotIsFull() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Attendant attendant = new Attendant(parkingLot);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(attendant);
+        attendant.park(car);
+
+
+        assertTrue(attendant.hasNotifiedParkingLotFull());
+    }
+
+    @Test
+    public void notify_shouldNotNotifyAttendant_whenParkingLotIsNotFull() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Attendant attendant = new Attendant(parkingLot);
+
+        parkingLot.addObserver(attendant);
+
+        assertFalse(attendant.hasNotifiedParkingLotFull());
+    }
+
+    @Test
+    public void notify_shouldNotifyAttendant_WhenParkingLotHasSpaceAvailable() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Attendant attendant = new Attendant(parkingLot);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(attendant);
+        attendant.park(car);
+        attendant.unpark(car);
+
+        assertTrue(attendant.hasNotifiedParkingLotSpaceAvailable());
+    }
+
+
+    @Test
+    public void notify_shouldNotNotifyAttendant_WhenParkingLotHasNoSpaceAvailable() {
+        ParkingLot parkingLot = new ParkingLot(0);
+        Attendant attendant = new Attendant(parkingLot);
+
+        parkingLot.addObserver(attendant);
+
+        assertFalse(attendant.hasNotifiedParkingLotSpaceAvailable());
+    }
+
 }
