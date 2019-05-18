@@ -142,4 +142,52 @@ class ParkingLotTest {
 
     }
 
+    @Test
+    public void notify_shouldNotifyTrafficCop_whenParkingLotIsFull() {
+        TrafficCop trafficCop = mock(TrafficCop.class);
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(trafficCop);
+        parkingLot.park(car);
+
+        verify(trafficCop, times(1)).notifyParkingLotIsFull();
+    }
+
+    @Test
+    public void notify_shouldNotNotifyTrafficCop_whenParkingLotIsNotFull() {
+        TrafficCop trafficCop = mock(TrafficCop.class);
+        ParkingLot parkingLot = new ParkingLot(2);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(trafficCop);
+        parkingLot.park(car);
+
+        verify(trafficCop, never()).notifyParkingLotIsFull();
+    }
+
+    @Test
+    public void notify_shouldNotifyTrafficCop_whenParkingLotHasSpaceAvailable() {
+        TrafficCop trafficCop = mock(TrafficCop.class);
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car("EW-012-23");
+
+        parkingLot.addObserver(trafficCop);
+        parkingLot.park(car);
+        parkingLot.unpark(car);
+
+
+        verify(trafficCop, times(1)).notifyParkingLotSpaceAvailable();
+    }
+
+    @Test
+    public void notify_shouldNotNotifyTrafficCop_whenParkingLotSpaceIsAvailableAndNotParkedAnyCar() {
+        TrafficCop trafficCop = mock(TrafficCop.class);
+        ParkingLot parkingLot = new ParkingLot(2);
+
+        parkingLot.addObserver(trafficCop);
+
+        verify(trafficCop, never()).notifyParkingLotSpaceAvailable();
+    }
+
 }
