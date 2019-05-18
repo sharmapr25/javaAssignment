@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parking_lot.exception.CarAlreadyParkedException;
 import parking_lot.exception.CarIsNotParkedException;
+import parking_lot.exception.InvalidParkingLotException;
 import parking_lot.exception.SpaceNotAvailableException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,15 +21,20 @@ class ParkingLotTest {
     @Test
     public void isParked_shouldReturnTrue_whenCarIsParkedInParkingLot() {
         Car car = new Car("EW-012-23");
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         parkingLot.park(car);
 
         assertTrue(parkingLot.isParked(car));
     }
 
     @Test
+    public void creatingParkingLot_shouldThrowInvalidParkingLotException_whenInitiatingParkingLotWithZero() {
+       assertThrows(InvalidParkingLotException.class, ()->{ParkingLot.createParkingLot(0);});
+    }
+
+    @Test
     public void isParked_shouldReturnFalse_whenCarIsNotParkedInParkingLot() {
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         Car car = new Car("EW-012-23");
 
         assertFalse(parkingLot.isParked(car));
@@ -36,17 +42,20 @@ class ParkingLotTest {
 
     @Test
     public void park_shouldThrowSpaceNotAvailableException_whenParkingLotDoesNotHaveSpaceForGivenCar() {
-        ParkingLot parkingLot = new ParkingLot(0);
-        Car car = new Car("EW-012-23");
+        ParkingLot parkingLot = ParkingLot.createParkingLot(1);
+        Car car1 = new Car("EW-012-23");
+        Car car2 = new Car("EW-322-33");
+
+        parkingLot.park(car1);
 
         assertThrows(SpaceNotAvailableException.class, () -> {
-            parkingLot.park(car);
+            parkingLot.park(car2);
         });
     }
 
     @Test
     public void park_shouldThrowCarAlreadyParkedException_whenGivenCarIsAlreadyParked() {
-        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(2);
         Car car = new Car("EW-012-23");
 
         parkingLot.park(car);
@@ -58,7 +67,7 @@ class ParkingLotTest {
 
     @Test
     public void isParked_shouldReturnFalse_whenGiveCarIsUnparked() {
-        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(2);
         Car car = new Car("EW-012-23");
 
         parkingLot.park(car);
@@ -70,7 +79,7 @@ class ParkingLotTest {
 
     @Test
     public void unpark_shouldThrowCarIsNotParkedException_whenCarHasNotParkInParkingLot() {
-        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(2);
         Car car = new Car("EW-012-23");
 
         assertThrows(CarIsNotParkedException.class, () -> {
@@ -80,7 +89,7 @@ class ParkingLotTest {
 
     @Test
     public void notify_shouldNotifyParkingLotOwner_whenParkingLotIsFull() {
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(owner);
@@ -91,7 +100,7 @@ class ParkingLotTest {
 
     @Test
     public void notify_shouldNotNotifyParkingLotOwner_whenParkingLotIsNotFull() {
-        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(2);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(owner);
@@ -102,7 +111,7 @@ class ParkingLotTest {
 
     @Test
     public void notify_shouldNotifyParkingLotOwner_whenParkingLotGetFreeSpace() {
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(owner);
@@ -115,7 +124,7 @@ class ParkingLotTest {
 
     @Test
     public void notify_shouldNotNotifyParkingLotOwner_whenParkingLotAlreadyHasFreeSpaceAndSomebodyUnparkTheCar() {
-        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(2);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(owner);
@@ -128,7 +137,7 @@ class ParkingLotTest {
 
     @Test
     public void notify_shouldNotifyParkingLotOwnerTwoTimesParkingLotFullAndOneTimeSpaceWasAvailable_whenParkCarTwiceAndUnparkOneTime() {
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(owner);
@@ -145,7 +154,7 @@ class ParkingLotTest {
     @Test
     public void notify_shouldNotifyTrafficCop_whenParkingLotIsFull() {
         TrafficCop trafficCop = mock(TrafficCop.class);
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(trafficCop);
@@ -157,7 +166,7 @@ class ParkingLotTest {
     @Test
     public void notify_shouldNotNotifyTrafficCop_whenParkingLotIsNotFull() {
         TrafficCop trafficCop = mock(TrafficCop.class);
-        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(2);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(trafficCop);
@@ -169,7 +178,7 @@ class ParkingLotTest {
     @Test
     public void notify_shouldNotifyTrafficCop_whenParkingLotHasSpaceAvailable() {
         TrafficCop trafficCop = mock(TrafficCop.class);
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(trafficCop);
@@ -183,7 +192,7 @@ class ParkingLotTest {
     @Test
     public void notify_shouldNotNotifyTrafficCop_whenParkingLotSpaceIsAvailableAndNotParkedAnyCar() {
         TrafficCop trafficCop = mock(TrafficCop.class);
-        ParkingLot parkingLot = new ParkingLot(2);
+        ParkingLot parkingLot = ParkingLot.createParkingLot(2);
 
         parkingLot.addObserver(trafficCop);
 

@@ -2,6 +2,7 @@ package parking_lot;
 
 import parking_lot.exception.CarAlreadyParkedException;
 import parking_lot.exception.CarIsNotParkedException;
+import parking_lot.exception.InvalidParkingLotException;
 import parking_lot.exception.SpaceNotAvailableException;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class ParkingLot {
     private List<ParkingLotObserver> observers;
 
 
-    public ParkingLot(int maxCapacity) {
+    private ParkingLot(int maxCapacity) {
         this.maxCapacity = maxCapacity;
         this.slots = new ArrayList<>();
         observers = new ArrayList<>();
@@ -56,5 +57,12 @@ public class ParkingLot {
 
     public void addObserver(ParkingLotObserver observer) {
         observers.add(observer);
+    }
+
+    public static ParkingLot createParkingLot(int maxCapacity) {
+        if(maxCapacity > 0){
+            return new ParkingLot(maxCapacity);
+        }
+        throw new InvalidParkingLotException();
     }
 }

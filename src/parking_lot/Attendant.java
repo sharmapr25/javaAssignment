@@ -1,20 +1,26 @@
 package parking_lot;
 
+import java.util.List;
+
 public class Attendant implements ParkingLotObserver {
-    private ParkingLot parkingLot;
+    private List<ParkingLot> parkingLots;
+    private List<ParkingLot> availableParkingLots;
+
     private boolean isParkingLotFull;
     private boolean isParkingSpaceAvailable;
 
-    public Attendant(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+    public Attendant(List<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
+        this.availableParkingLots = parkingLots;
     }
 
     public void park(Car car) {
-        parkingLot.park(car);
+        
+        parkingLots.get(0).park(car);
     }
 
     public void unpark(Car car) {
-        parkingLot.unpark(car);
+        parkingLots.get(0).unpark(car);
     }
 
     @Override
