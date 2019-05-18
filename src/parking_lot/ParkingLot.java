@@ -54,7 +54,7 @@ public class ParkingLot {
         slots = slots.stream().filter(slot -> !slot.hasCar(car)).collect(Collectors.toList());
     }
 
-    public void addObserver(Owner owner) {
-        observers.add(owner);
+    public void addObserver(ParkingLotObserver observer) {
+        observers.add(observer);
     }
 }

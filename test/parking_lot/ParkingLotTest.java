@@ -1,13 +1,21 @@
 package parking_lot;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parking_lot.exception.CarAlreadyParkedException;
 import parking_lot.exception.CarIsNotParkedException;
 import parking_lot.exception.SpaceNotAvailableException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class ParkingLotTest {
+    Owner owner;
+
+    @BeforeEach
+    public void setup() {
+        owner = mock(Owner.class);
+    }
 
     @Test
     public void isParked_shouldReturnTrue_whenCarIsParkedInParkingLot() {
@@ -72,32 +80,28 @@ class ParkingLotTest {
 
     @Test
     public void notify_shouldNotifyParkingLotOwner_whenParkingLotIsFull() {
-        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(1);
-
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(owner);
         parkingLot.park(car);
 
-        assertTrue(owner.isNotifiedParkingLotFull());
+        verify(owner, times(1)).notifyParkingLotIsFull();
     }
 
     @Test
     public void notify_shouldNotNotifyParkingLotOwner_whenParkingLotIsNotFull() {
-        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(2);
         Car car = new Car("EW-012-23");
 
         parkingLot.addObserver(owner);
         parkingLot.park(car);
 
-        assertFalse(owner.isNotifiedParkingLotFull());
+        verify(owner, never()).notifyParkingLotIsFull();
     }
 
     @Test
     public void notify_shouldNotifyParkingLotOwner_whenParkingLotGetFreeSpace() {
-        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car("EW-012-23");
 
@@ -105,12 +109,12 @@ class ParkingLotTest {
         parkingLot.park(car);
         parkingLot.unpark(car);
 
-        assertTrue(owner.isNotifiedParkingLotSpaceAvailable());
+
+        verify(owner, times(1)).notifyParkingLotSpaceAvailable();
     }
 
     @Test
     public void notify_shouldNotNotifyParkingLotOwner_whenParkingLotAlreadyHasFreeSpaceAndSomebodyUnparkTheCar() {
-        Owner owner = new Owner();
         ParkingLot parkingLot = new ParkingLot(2);
         Car car = new Car("EW-012-23");
 
@@ -118,28 +122,12 @@ class ParkingLotTest {
         parkingLot.park(car);
         parkingLot.unpark(car);
 
-        assertFalse(owner.isNotifiedParkingLotSpaceAvailable());
+        verify(owner, never()).notifyParkingLotSpaceAvailable();
 
     }
 
     @Test
-    public void notify_shouldNotifyParkingLotOwnerForSpaceAvailableOnly_whenParkingLotAlreadyHasFreeSpaceAndSomebodyUnparkTheCar() {
-        Owner owner = new Owner();
-        ParkingLot parkingLot = new ParkingLot(1);
-        Car car = new Car("EW-012-23");
-
-        parkingLot.addObserver(owner);
-        parkingLot.park(car);
-        parkingLot.unpark(car);
-
-        assertFalse(owner.isNotifiedParkingLotFull());
-        assertTrue(owner.isNotifiedParkingLotSpaceAvailable());
-
-    }
-
-    @Test
-    public void notify_shouldNotifyParkingLotOwnerOnlyForParkingLotFull_whenParkingLotDoesNotHaveSpace() {
-        Owner owner = new Owner();
+    public void notify_shouldNotifyParkingLotOwnerTwoTimesParkingLotFullAndOneTimeSpaceWasAvailable_whenParkCarTwiceAndUnparkOneTime() {
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car("EW-012-23");
 
@@ -149,8 +137,8 @@ class ParkingLotTest {
 
         parkingLot.park(car);
 
-        assertTrue(owner.isNotifiedParkingLotFull());
-        assertFalse(owner.isNotifiedParkingLotSpaceAvailable());
+        verify(owner, times(2)).notifyParkingLotIsFull();
+        verify(owner, times(1)).notifyParkingLotSpaceAvailable();
 
     }
 
