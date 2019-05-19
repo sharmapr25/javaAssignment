@@ -1,7 +1,7 @@
 package parking_lot;
 
 import parking_lot.exception.CarAlreadyParkedException;
-import parking_lot.exception.CarIsNotParkedException;
+import parking_lot.exception.CarNotParkedException;
 import parking_lot.exception.InvalidParkingLotException;
 import parking_lot.exception.SpaceNotAvailableException;
 
@@ -47,7 +47,7 @@ public class ParkingLot {
 
     public void unpark(Car car) {
         if (!isParked(car)) {
-            throw new CarIsNotParkedException();
+            throw new CarNotParkedException();
         }
         if (isFull()) {
             observers.forEach(observer -> observer.notifyParkingLotSpaceAvailable(this));
@@ -60,7 +60,7 @@ public class ParkingLot {
     }
 
     public static ParkingLot createParkingLot(int maxCapacity) {
-        if(maxCapacity > 0){
+        if (maxCapacity > 0) {
             return new ParkingLot(maxCapacity);
         }
         throw new InvalidParkingLotException();

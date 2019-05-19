@@ -1,6 +1,7 @@
 package parking_lot;
 
 import parking_lot.exception.CarAlreadyParkedException;
+import parking_lot.exception.CarNotParkedException;
 import parking_lot.exception.SpaceNotAvailableException;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Attendant implements ParkingLotObserver {
     }
 
     public void park(Car car) {
-        if(isCarAlreadyParked(car)){
+        if (isCarAlreadyParked(car)) {
             throw new CarAlreadyParkedException();
         }
         if (availableParkingLots.isEmpty()) {
@@ -34,7 +35,12 @@ public class Attendant implements ParkingLotObserver {
     }
 
     public void unpark(Car car) {
-        parkingLots.get(0).unpark(car);
+        List<ParkingLot> matchedParkingLots = parkingLots.stream().filter(parkingLot -> parkingLot.isParked(car)).collect(Collectors.toList());
+
+        if (matchedParkingLots.isEmpty()) {
+            throw new CarNotParkedException();
+        }
+        matchedParkingLots.get(0).unpark(car);
     }
 
     @Override

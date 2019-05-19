@@ -3,7 +3,7 @@ package parking_lot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parking_lot.exception.CarAlreadyParkedException;
-import parking_lot.exception.CarIsNotParkedException;
+import parking_lot.exception.CarNotParkedException;
 import parking_lot.exception.InvalidParkingLotException;
 import parking_lot.exception.SpaceNotAvailableException;
 
@@ -82,7 +82,7 @@ class ParkingLotTest {
         ParkingLot parkingLot = ParkingLot.createParkingLot(2);
         Car car = new Car("EW-012-23");
 
-        assertThrows(CarIsNotParkedException.class, () -> {
+        assertThrows(CarNotParkedException.class, () -> {
             parkingLot.unpark(car);
         });
     }
