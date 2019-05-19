@@ -1,12 +1,12 @@
 package parking_lot;
 
-public class Owner implements ParkingLotObserver {
+public class Notifiable implements ParkingLotObserver {
 
     private boolean isParkingLotFull;
     private boolean isParkingSpaceAvailable;
 
 
-    public Owner() {
+    public Notifiable() {
         this.isParkingLotFull = false;
         this.isParkingSpaceAvailable = false;
 

@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class ParkingLotTest {
-    Owner owner;
+    Notifiable owner;
 
     @BeforeEach
     public void setup() {
-        owner = mock(Owner.class);
+        owner = mock(Notifiable.class);
     }
 
     @Test
@@ -152,8 +152,8 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotifyTrafficCop_whenParkingLotIsFull() {
-        TrafficCop trafficCop = mock(TrafficCop.class);
+    public void notify_shouldNotifyNotifiable_whenParkingLotIsFull() {
+        Notifiable trafficCop = mock(Notifiable.class);
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         Car car = new Car("EW-012-23");
 
@@ -164,8 +164,8 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotNotifyTrafficCop_whenParkingLotIsNotFull() {
-        TrafficCop trafficCop = mock(TrafficCop.class);
+    public void notify_shouldNotNotifyNotifiable_whenParkingLotIsNotFull() {
+        Notifiable trafficCop = mock(Notifiable.class);
         ParkingLot parkingLot = ParkingLot.createParkingLot(2);
         Car car = new Car("EW-012-23");
 
@@ -176,8 +176,8 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotifyTrafficCop_whenParkingLotHasSpaceAvailable() {
-        TrafficCop trafficCop = mock(TrafficCop.class);
+    public void notify_shouldNotifyNotifiable_whenParkingLotHasSpaceAvailable() {
+        Notifiable trafficCop = mock(Notifiable.class);
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
         Car car = new Car("EW-012-23");
 
@@ -190,8 +190,8 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotNotifyTrafficCop_whenParkingLotSpaceIsAvailableAndNotParkedAnyCar() {
-        TrafficCop trafficCop = mock(TrafficCop.class);
+    public void notify_shouldNotNotifyNotifiable_whenParkingLotSpaceIsAvailableAndNotParkedAnyCar() {
+        Notifiable trafficCop = mock(Notifiable.class);
         ParkingLot parkingLot = ParkingLot.createParkingLot(2);
 
         parkingLot.addObserver(trafficCop);
