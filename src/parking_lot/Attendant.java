@@ -3,6 +3,7 @@ package parking_lot;
 import parking_lot.exception.CarAlreadyParkedException;
 import parking_lot.exception.CarNotParkedException;
 import parking_lot.exception.SpaceNotAvailableException;
+import parking_lot.parking_order.ParkingOrderSelection;
 
 import java.util.ArrayList;
 import java.util.List;
