@@ -12,11 +12,11 @@ import static org.mockito.Mockito.*;
 import static parking_lot.ParkingLot.*;
 
 class ParkingLotTest {
-    Notifiable owner;
+    ParkingLotObserver owner;
 
     @BeforeEach
     public void setup() {
-        owner = mock(Notifiable.class);
+        owner = mock(ParkingLotObserver.class);
     }
 
     @Test
@@ -155,8 +155,8 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotifyNotifiable_whenParkingLotIsFull() {
-        Notifiable trafficCop = mock(Notifiable.class);
+    public void notify_shouldNotifyParkingLotObserver_whenParkingLotIsFull() {
+        ParkingLotObserver trafficCop = mock(ParkingLotObserver.class);
         ParkingLot parkingLot = createParkingLot(1);
         Car car = new Car("EW-012-23");
 
@@ -167,8 +167,8 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotNotifyNotifiable_whenParkingLotIsNotFull() {
-        Notifiable trafficCop = mock(Notifiable.class);
+    public void notify_shouldNotNotifyParkingLotObserver_whenParkingLotIsNotFull() {
+        ParkingLotObserver trafficCop = mock(ParkingLotObserver.class);
         ParkingLot parkingLot = createParkingLot(2);
         Car car = new Car("EW-012-23");
 
@@ -179,8 +179,8 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotifyNotifiable_whenParkingLotHasSpaceAvailable() {
-        Notifiable trafficCop = mock(Notifiable.class);
+    public void notify_shouldNotifyParkingLotObserver_whenParkingLotHasSpaceAvailable() {
+        ParkingLotObserver trafficCop = mock(ParkingLotObserver.class);
         ParkingLot parkingLot = createParkingLot(1);
         Car car = new Car("EW-012-23");
 
@@ -193,8 +193,8 @@ class ParkingLotTest {
     }
 
     @Test
-    public void notify_shouldNotNotifyNotifiable_whenParkingLotSpaceIsAvailableAndNotParkedAnyCar() {
-        Notifiable trafficCop = mock(Notifiable.class);
+    public void notify_shouldNotNotifyParkingLotObserver_whenParkingLotSpaceIsAvailableAndNotParkedAnyCar() {
+        ParkingLotObserver trafficCop = mock(ParkingLotObserver.class);
         ParkingLot parkingLot = createParkingLot(2);
 
         parkingLot.addObserver(trafficCop);
