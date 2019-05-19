@@ -10,9 +10,11 @@ import java.util.stream.Collectors;
 
 public class Attendant implements ParkingLotObserver {
     private List<ParkingLot> parkingLots;
+    private final ParkingOrderSelection parkingOrderSelection;
     private List<ParkingLot> availableParkingLots;
 
-    private Attendant(List<ParkingLot> parkingLots) {
+    private Attendant(List<ParkingLot> parkingLots, ParkingOrderSelection parkingOrderSelection) {
+        this.parkingOrderSelection = parkingOrderSelection;
         this.parkingLots = new ArrayList<>();
         this.parkingLots.addAll(parkingLots);
         this.availableParkingLots = new ArrayList<>();
@@ -26,7 +28,7 @@ public class Attendant implements ParkingLotObserver {
         if (availableParkingLots.isEmpty()) {
             throw new SpaceNotAvailableException();
         }
-        availableParkingLots.get(0).park(car);
+        parkingOrderSelection.selectedParkingLot(availableParkingLots).park(car);
     }
 
     private boolean isCarAlreadyParked(Car car) {
@@ -62,8 +64,8 @@ public class Attendant implements ParkingLotObserver {
         return availableParkingLots.size() > 0;
     }
 
-    public static Attendant createAttendant(List<ParkingLot> parkingLots) {
-        Attendant attendant = new Attendant(parkingLots);
+    public static Attendant createAttendant(List<ParkingLot> parkingLots, ParkingOrderSelection parkingOrderSelection) {
+        Attendant attendant = new Attendant(parkingLots, parkingOrderSelection);
         parkingLots.forEach(parkingLot -> parkingLot.addObserver(attendant));
         return attendant;
     }

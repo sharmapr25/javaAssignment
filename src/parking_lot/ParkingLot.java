@@ -65,4 +65,12 @@ public class ParkingLot {
         }
         throw new InvalidParkingLotException();
     }
+
+    public boolean hasMoreFreeSpace(ParkingLot otherParkingLot) {
+        return this.getAvailableSpace() > otherParkingLot.getAvailableSpace();
+    }
+
+    private int getAvailableSpace() {
+        return maxCapacity - slots.size();
+    }
 }
