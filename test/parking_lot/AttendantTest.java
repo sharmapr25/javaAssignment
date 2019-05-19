@@ -10,7 +10,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static parking_lot.Attendant.createAttendant;
-import static parking_lot.ParkingOrderSelection.HIGHEST_FREE_SPACE;
+import static parking_lot.ParkingOrderSelection.MOST_FREE_CAPACITY;
+import static parking_lot.ParkingOrderSelection.MOST_FREE_SPACE;
 import static parking_lot.ParkingOrderSelection.MOST_AVAILABLE;
 
 class AttendantTest {
@@ -281,7 +282,7 @@ class AttendantTest {
         }};
 
         Car car = new Car("EW-012-22");
-        Attendant attendant = Attendant.createAttendant(parkingLots, HIGHEST_FREE_SPACE);
+        Attendant attendant = Attendant.createAttendant(parkingLots, MOST_FREE_SPACE);
 
         attendant.park(car);
 
@@ -306,7 +307,7 @@ class AttendantTest {
         Car car2 = new Car("EW-012-23");
         Car car3 = new Car("EW-012-24");
 
-        Attendant attendant = Attendant.createAttendant(parkingLots, HIGHEST_FREE_SPACE);
+        Attendant attendant = Attendant.createAttendant(parkingLots, MOST_FREE_SPACE);
 
         attendant.park(car1);
         attendant.park(car2);
@@ -316,6 +317,34 @@ class AttendantTest {
         assertTrue(parkingLot3.isParked(car1));
         assertTrue(parkingLot2.isParked(car2));
         assertTrue(parkingLot3.isParked(car3));
+    }
+
+    @Test
+    public void park_shouldParCarInParkingLots_WhenParkingLotOrderIsMostFreeCapacity() {
+        ParkingLot parkingLot1 = ParkingLot.createParkingLot(2);
+        ParkingLot parkingLot2 = ParkingLot.createParkingLot(3);
+
+
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot1);
+            add(parkingLot2);
+
+        }};
+
+        Car car1 = new Car("EW-012-22");
+        Car car2 = new Car("EW-012-23");
+        Car car3 = new Car("EW-012-24");
+
+        Attendant attendant = Attendant.createAttendant(parkingLots, MOST_FREE_CAPACITY);
+
+        attendant.park(car1);
+        attendant.park(car2);
+        attendant.park(car3);
+
+
+        assertTrue(parkingLot2.isParked(car1));
+        assertTrue(parkingLot2.isParked(car2));
+        assertTrue(parkingLot1.isParked(car3));
     }
 
 

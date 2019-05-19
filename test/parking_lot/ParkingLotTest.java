@@ -218,4 +218,28 @@ class ParkingLotTest {
         assertFalse(parkingLot1.hasMoreFreeSpace(parkingLot2));
     }
 
+    @Test
+    public void hasMoreFreeCapacity_shouldReturnTrue_whenGivenParkingLotHasMoreFreeCapacityThanOtherParkingLot() {
+        ParkingLot parkingLot1 = createParkingLot(3);
+        ParkingLot parkingLot2 = createParkingLot(2);
+
+        Car car1 = new Car("EW-012-23");
+
+        parkingLot1.park(car1);
+
+        assertTrue(parkingLot1.hasMoreFreeCapacity(parkingLot2));
+    }
+
+    @Test
+    public void hasMoreFreeCapacity_shouldReturnFalse_whenGivenParkingLotHasLessFreeCapacityThanOtherParkingLot() {
+        ParkingLot parkingLot1 = createParkingLot(2);
+        ParkingLot parkingLot2 = createParkingLot(3);
+
+        Car car1 = new Car("EW-012-23");
+
+        parkingLot2.park(car1);
+
+        assertFalse(parkingLot1.hasMoreFreeCapacity(parkingLot2));
+    }
+
 }
