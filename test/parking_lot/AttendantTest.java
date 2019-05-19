@@ -5,18 +5,21 @@ import parking_lot.exception.CarAlreadyParkedException;
 import parking_lot.exception.CarIsNotParkedException;
 import parking_lot.exception.SpaceNotAvailableException;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
+import static parking_lot.Attendant.createAttendant;
 
 class AttendantTest {
 
     @Test
     public void park_shouldParkCar_whenThereIsSpaceInParkingLot() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(2);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -25,7 +28,10 @@ class AttendantTest {
     @Test
     public void park_shouldThrowSpaceNotAvailableException_whenThereIsNoSpaceInParkingLot() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
         Car car1 = new Car("EW-012-23");
         Car car2 = new Car("EW-012-20");
 
@@ -38,7 +44,10 @@ class AttendantTest {
     @Test
     public void park_shouldThrowCarAlreadyParkException_whenCarIsAlreadyPark() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -51,7 +60,10 @@ class AttendantTest {
     @Test
     public void unpark_shouldUnparkCar_whenGivenCarIsParkInParkingLot() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -61,7 +73,10 @@ class AttendantTest {
     @Test
     public void unpark_shouldThrowCarIsNotParkedException_whenGivenCarIsNotParkInParkingLot() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
         Car car = new Car("EW-012-23");
 
         assertThrows(CarIsNotParkedException.class, () -> {
@@ -72,10 +87,12 @@ class AttendantTest {
     @Test
     public void notify_shouldNotifyAttendant_whenParkingLotIsFull() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
         Car car = new Car("EW-012-23");
 
-        parkingLot.addObserver(attendant);
         attendant.park(car);
 
 
@@ -85,9 +102,11 @@ class AttendantTest {
     @Test
     public void notify_shouldNotNotifyAttendant_whenParkingLotIsNotFull() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
 
-        parkingLot.addObserver(attendant);
 
         assertFalse(attendant.hasNotifiedParkingLotFull());
     }
@@ -95,10 +114,12 @@ class AttendantTest {
     @Test
     public void notify_shouldNotifyAttendant_WhenParkingLotHasSpaceAvailable() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
         Car car = new Car("EW-012-23");
 
-        parkingLot.addObserver(attendant);
         attendant.park(car);
         attendant.unpark(car);
 
@@ -109,10 +130,12 @@ class AttendantTest {
     @Test
     public void notify_shouldNotNotifyAttendant_WhenParkingLotHasNoSpaceAvailable() {
         ParkingLot parkingLot = ParkingLot.createParkingLot(1);
-        Attendant attendant = new Attendant(singletonList(parkingLot));
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot);
+        }};
+        Attendant attendant = createAttendant(parkingLots);
         Car car = new Car("EW-012-23");
 
-        parkingLot.addObserver(attendant);
         attendant.park(car);
 
         assertFalse(attendant.hasNotifiedParkingLotSpaceAvailable());
@@ -122,11 +145,19 @@ class AttendantTest {
     public void park_shouldParkTheCar_whenSecondParkingLotHasSpace() {
         ParkingLot parkingLot1 = ParkingLot.createParkingLot(1);
         ParkingLot parkingLot2 = ParkingLot.createParkingLot(1);
-        List<ParkingLot> parkingLots = asList(parkingLot1, parkingLot2);
-        Attendant attendant = new Attendant(parkingLots);
-        Car car = new Car("EW-012-23");
+        List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
+            add(parkingLot1);
+            add(parkingLot2);
+        }};
 
-        attendant.park(car);
+        Attendant attendant = createAttendant(parkingLots);
+
+        Car car1 = new Car("EW-012-23");
+        Car car2 = new Car("EW-012-23");
+
+
+        attendant.park(car1);
+        attendant.park(car2);
     }
 
 

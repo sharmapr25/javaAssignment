@@ -95,7 +95,7 @@ class ParkingLotTest {
         parkingLot.addObserver(owner);
         parkingLot.park(car);
 
-        verify(owner, times(1)).notifyParkingLotIsFull();
+        verify(owner, times(1)).notifyParkingLotIsFull(parkingLot);
     }
 
     @Test
@@ -106,7 +106,7 @@ class ParkingLotTest {
         parkingLot.addObserver(owner);
         parkingLot.park(car);
 
-        verify(owner, never()).notifyParkingLotIsFull();
+        verify(owner, never()).notifyParkingLotIsFull(parkingLot);
     }
 
     @Test
@@ -119,7 +119,7 @@ class ParkingLotTest {
         parkingLot.unpark(car);
 
 
-        verify(owner, times(1)).notifyParkingLotSpaceAvailable();
+        verify(owner, times(1)).notifyParkingLotSpaceAvailable(parkingLot);
     }
 
     @Test
@@ -131,7 +131,7 @@ class ParkingLotTest {
         parkingLot.park(car);
         parkingLot.unpark(car);
 
-        verify(owner, never()).notifyParkingLotSpaceAvailable();
+        verify(owner, never()).notifyParkingLotSpaceAvailable(parkingLot);
 
     }
 
@@ -146,8 +146,8 @@ class ParkingLotTest {
 
         parkingLot.park(car);
 
-        verify(owner, times(2)).notifyParkingLotIsFull();
-        verify(owner, times(1)).notifyParkingLotSpaceAvailable();
+        verify(owner, times(2)).notifyParkingLotIsFull(parkingLot);
+        verify(owner, times(1)).notifyParkingLotSpaceAvailable(parkingLot);
 
     }
 
@@ -160,7 +160,7 @@ class ParkingLotTest {
         parkingLot.addObserver(trafficCop);
         parkingLot.park(car);
 
-        verify(trafficCop, times(1)).notifyParkingLotIsFull();
+        verify(trafficCop, times(1)).notifyParkingLotIsFull(parkingLot);
     }
 
     @Test
@@ -172,7 +172,7 @@ class ParkingLotTest {
         parkingLot.addObserver(trafficCop);
         parkingLot.park(car);
 
-        verify(trafficCop, never()).notifyParkingLotIsFull();
+        verify(trafficCop, never()).notifyParkingLotIsFull(parkingLot);
     }
 
     @Test
@@ -186,7 +186,7 @@ class ParkingLotTest {
         parkingLot.unpark(car);
 
 
-        verify(trafficCop, times(1)).notifyParkingLotSpaceAvailable();
+        verify(trafficCop, times(1)).notifyParkingLotSpaceAvailable(parkingLot);
     }
 
     @Test
@@ -196,7 +196,7 @@ class ParkingLotTest {
 
         parkingLot.addObserver(trafficCop);
 
-        verify(trafficCop, never()).notifyParkingLotSpaceAvailable();
+        verify(trafficCop, never()).notifyParkingLotSpaceAvailable(parkingLot);
     }
 
 }

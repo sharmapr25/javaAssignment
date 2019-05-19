@@ -1,7 +1,7 @@
 package parking_lot;
 
 public interface ParkingLotObserver {
-    void notifyParkingLotIsFull();
+    void notifyParkingLotIsFull(ParkingLot parkingLot);
 
-    void notifyParkingLotSpaceAvailable();
+    void notifyParkingLotSpaceAvailable(ParkingLot parkingLot);
 }
