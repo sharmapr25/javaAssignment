@@ -10,9 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static parking_lot.Attendant.createAttendant;
-import static parking_lot.ParkingOrderSelection.MOST_FREE_CAPACITY;
+import static parking_lot.ParkingOrderSelection.MOST_CAPACITY;
 import static parking_lot.ParkingOrderSelection.MOST_FREE_SPACE;
-import static parking_lot.ParkingOrderSelection.MOST_AVAILABLE;
+import static parking_lot.ParkingOrderSelection.FIRST_MOST_AVAILABLE;
 
 class AttendantTest {
 
@@ -22,7 +22,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -34,7 +34,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
         Car car1 = new Car("EW-012-23");
         Car car2 = new Car("EW-012-20");
 
@@ -50,7 +50,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -66,7 +66,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -79,7 +79,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
         Car car = new Car("EW-012-23");
 
         assertThrows(CarNotParkedException.class, () -> {
@@ -93,7 +93,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -108,7 +108,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
 
 
         assertFalse(attendant.hasNotifiedParkingLotFull());
@@ -120,7 +120,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -136,7 +136,7 @@ class AttendantTest {
         List<ParkingLot> parkingLots = new ArrayList<ParkingLot>() {{
             add(parkingLot);
         }};
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
         Car car = new Car("EW-012-23");
 
         attendant.park(car);
@@ -153,7 +153,7 @@ class AttendantTest {
             add(parkingLot2);
         }};
 
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
 
         Car car1 = new Car("EW-012-23");
         Car car2 = new Car("EW-012-22");
@@ -173,7 +173,7 @@ class AttendantTest {
         }};
         Car car1 = new Car("EW-012-23");
         Car car2 = new Car("EW-012-23");
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
 
         attendant.park(car1);
 
@@ -195,7 +195,7 @@ class AttendantTest {
         Car car2 = new Car("EW-012-23");
         Car car3 = new Car("EW-012-24");
 
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
 
         attendant.park(car1);
         attendant.park(car2);
@@ -214,7 +214,7 @@ class AttendantTest {
             add(parkingLot2);
         }};
 
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
 
         Car car1 = new Car("EW-012-23");
         Car car2 = new Car("EW-012-22");
@@ -241,7 +241,7 @@ class AttendantTest {
 
         Car car = new Car("EW-012-23");
 
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
 
         assertThrows(CarNotParkedException.class, () -> {
             attendant.unpark(car);
@@ -262,7 +262,7 @@ class AttendantTest {
         Car car1 = new Car("EW-012-22");
         Car car2 = new Car("EW-012-23");
 
-        Attendant attendant = createAttendant(parkingLots, MOST_AVAILABLE);
+        Attendant attendant = createAttendant(parkingLots, FIRST_MOST_AVAILABLE);
 
         attendant.park(car1);
         attendant.park(car2);
@@ -335,7 +335,7 @@ class AttendantTest {
         Car car2 = new Car("EW-012-23");
         Car car3 = new Car("EW-012-24");
 
-        Attendant attendant = Attendant.createAttendant(parkingLots, MOST_FREE_CAPACITY);
+        Attendant attendant = Attendant.createAttendant(parkingLots, MOST_CAPACITY);
 
         attendant.park(car1);
         attendant.park(car2);
@@ -344,7 +344,7 @@ class AttendantTest {
 
         assertTrue(parkingLot2.isParked(car1));
         assertTrue(parkingLot2.isParked(car2));
-        assertTrue(parkingLot1.isParked(car3));
+        assertTrue(parkingLot2.isParked(car3));
     }
 
 

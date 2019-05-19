@@ -74,8 +74,7 @@ public class ParkingLot {
         return maxCapacity - slots.size();
     }
 
-    public boolean hasMoreFreeCapacity(ParkingLot otherParkingLot) {
-        return this.getAvailableSpace() >= otherParkingLot.getAvailableSpace()
-                && this.maxCapacity > otherParkingLot.maxCapacity;
+    public boolean hasMoreCapacity(ParkingLot otherParkingLot) {
+        return this.maxCapacity > otherParkingLot.maxCapacity;
     }
 }

@@ -15,18 +15,18 @@ public enum ParkingOrderSelection {
             }
             return selectedParkingLot;
         }
-    }, MOST_AVAILABLE {
+    }, FIRST_MOST_AVAILABLE {
         @Override
         ParkingLot selectedParkingLot(List<ParkingLot> parkingLots) {
             return parkingLots.get(0);
         }
-    }, MOST_FREE_CAPACITY{
+    }, MOST_CAPACITY {
         @Override
         ParkingLot selectedParkingLot(List<ParkingLot> parkingLots) {
             ParkingLot selectedParkingLot = parkingLots.get(0);
 
             for(ParkingLot parkingLot: parkingLots){
-                if(parkingLot.hasMoreFreeCapacity(selectedParkingLot)){
+                if(parkingLot.hasMoreCapacity(selectedParkingLot)){
                     selectedParkingLot = parkingLot;
                 }
             }

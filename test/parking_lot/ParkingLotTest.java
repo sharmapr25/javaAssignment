@@ -227,7 +227,7 @@ class ParkingLotTest {
 
         parkingLot1.park(car1);
 
-        assertTrue(parkingLot1.hasMoreFreeCapacity(parkingLot2));
+        assertTrue(parkingLot1.hasMoreCapacity(parkingLot2));
     }
 
     @Test
@@ -239,7 +239,7 @@ class ParkingLotTest {
 
         parkingLot2.park(car1);
 
-        assertFalse(parkingLot1.hasMoreFreeCapacity(parkingLot2));
+        assertFalse(parkingLot1.hasMoreCapacity(parkingLot2));
     }
 
 }
