@@ -14,6 +14,12 @@ public class User {
     }
 
     public void addFollower(User follower) {
+        if (this.equals(follower)) {
+            throw new SelfFollowingNotAllowed();
+        }
+        if (hasFollower(follower)) {
+            throw new UserIsAlreadyFollowing();
+        }
         followers.add(follower);
     }
 
