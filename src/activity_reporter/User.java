@@ -3,7 +3,7 @@ package activity_reporter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements FollowerObserver {
 
     private String name;
     private List<User> followers;
@@ -27,4 +27,12 @@ public class User {
         return followers.contains(followerToCheck);
     }
 
+    public void uploadPhoto(Photo photo) {
+        followers.forEach(User::notifyPhotoUploaded);
+    }
+
+    @Override
+    public void notifyPhotoUploaded() {
+
+    }
 }

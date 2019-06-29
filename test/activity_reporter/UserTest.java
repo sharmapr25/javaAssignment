@@ -3,8 +3,12 @@ package activity_reporter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 class UserTest {
+    Photo photo;
 
     @Test
     public void hasFollower_shouldReturnTrue_whenBobFollowsAlice() {
@@ -38,6 +42,7 @@ class UserTest {
 
         assertTrue(alice.hasFollower(bob));
         assertTrue(alice.hasFollower(john));
+
     }
 
     @Test
@@ -50,6 +55,7 @@ class UserTest {
         assertThrows(UserIsAlreadyFollowing.class, () -> {
             alice.addFollower(bob);
         });
+
     }
 
     @Test
@@ -59,6 +65,18 @@ class UserTest {
         assertThrows(SelfFollowingNotAllowed.class, () -> {
             alice.addFollower(alice);
         });
+
+    }
+
+    @Test
+    public void uploadPhoto_shouldNotifyBob_whenBobFollowsAlice() {
+        User alice = new User("Alice");
+        User bob = mock(User.class);
+
+        alice.addFollower(bob);
+        alice.uploadPhoto(photo);
+
+        verify(bob, times(1)).notifyPhotoUploaded();
     }
 
 }
