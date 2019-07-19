@@ -19,11 +19,6 @@ public class Probability {
         return compare(that.ratio, ratio) == 0;
     }
 
-    @Override
-    public int hashCode() {
-        long temp = Double.doubleToLongBits(ratio);
-        return (int) (temp ^ (temp >>> 32));
-    }
 
     public int compareWith(Probability probability) {
         return compare(this.ratio, probability.ratio);
